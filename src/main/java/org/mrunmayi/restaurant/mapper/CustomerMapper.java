@@ -14,6 +14,9 @@ public class CustomerMapper {
                 .lastName(request.lastName())
                 .email(request.email())
                 .password(request.password())
+                .addr(request.addr())
+                .city(request.city())
+                .pinCode(request.pinCode())
                 .build();
     }
 
@@ -21,7 +24,10 @@ public class CustomerMapper {
         return new CustomerResponse(
                 customer.getFirstName(),
                 customer.getLastName(),
-                customer.getEmail()
+                customer.getEmail(),
+                customer.getAddr(),
+                customer.getCity(),
+                customer.getPinCode()
         );
     }
 }

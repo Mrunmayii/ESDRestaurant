@@ -23,6 +23,24 @@ public record CustomerRequest(
         @NotBlank(message = "Password should be present")
         @Size(min = 6, max = 12)
         @JsonProperty("password")
-        String password
+        String password,
+
+        @NotNull(message="Address is required")
+        @NotEmpty(message = "Address should be present")
+        @NotBlank(message = "Address should be present")
+        @JsonProperty("addr")
+        String addr,
+
+        @NotNull(message="City is required")
+        @NotEmpty(message = "City required")
+        @NotBlank(message = "City required")
+        @JsonProperty("city")
+        String city,
+
+        @NotNull(message="Pincode is required")
+        @NotEmpty(message = "Pincode required")
+        @NotBlank(message = "Pincode required")
+        @JsonProperty("pinCode")
+        String pinCode
 ) {
 }

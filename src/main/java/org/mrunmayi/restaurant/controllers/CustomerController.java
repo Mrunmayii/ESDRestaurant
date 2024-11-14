@@ -8,8 +8,6 @@ import org.mrunmayi.restaurant.service.CustomerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/customer")
@@ -24,6 +22,6 @@ public class CustomerController {
 
     @GetMapping("/{email}")
     public ResponseEntity<CustomerResponse> getCustomersByEmail(@PathVariable("email") String email) {
-        return ResponseEntity.ok(customerService.getCustomerByEmail(email));
+        return ResponseEntity.ok(customerService.retrieveCustomer(email));
     }
 }

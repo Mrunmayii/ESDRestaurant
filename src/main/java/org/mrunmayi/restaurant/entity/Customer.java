@@ -22,4 +22,10 @@ public class Customer {
     private String email;
     @Column(name="password", nullable=false)
     private String password;
+    @Column(name="city", nullable = false)
+    private String city;
+    @Column(name="address", nullable = false)
+    private String addr;
+    @Column(name = "pin_code", nullable = false)
+    private String pinCode;
 }
