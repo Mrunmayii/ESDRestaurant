@@ -1,4 +1,4 @@
-package org.mrunmayi.restaurant.service;
+package org.mrunmayi.restaurant.helpers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;

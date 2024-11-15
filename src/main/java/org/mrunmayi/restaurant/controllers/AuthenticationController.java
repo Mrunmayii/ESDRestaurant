@@ -2,6 +2,7 @@ package org.mrunmayi.restaurant.controllers;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.mrunmayi.restaurant.dto.CustomerRequest;
 import org.mrunmayi.restaurant.dto.LoginRequest;
 import org.mrunmayi.restaurant.service.CustomerService;
 import org.springframework.http.ResponseEntity;
@@ -17,5 +18,10 @@ public class AuthenticationController {
         @PostMapping("/login")
         public ResponseEntity<String> createCustomer(@RequestBody @Valid LoginRequest request) {
             return ResponseEntity.ok(customerService.login(request));
+        }
+
+        @PostMapping("/register")
+        public ResponseEntity<String> createCustomer(@RequestBody @Valid CustomerRequest request) {
+            return ResponseEntity.ok(customerService.createCustomer(request));
         }
 }

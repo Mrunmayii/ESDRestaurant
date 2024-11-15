@@ -6,6 +6,8 @@ import org.mrunmayi.restaurant.dto.CustomerResponse;
 import org.mrunmayi.restaurant.dto.LoginRequest;
 import org.mrunmayi.restaurant.entity.Customer;
 import org.mrunmayi.restaurant.exception.CustomerNotFoundException;
+import org.mrunmayi.restaurant.helpers.EncryptionService;
+import org.mrunmayi.restaurant.helpers.JWTHelper;
 import org.mrunmayi.restaurant.mapper.CustomerMapper;
 import org.mrunmayi.restaurant.repo.CustomerRepo;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,7 @@ public class CustomerService {
     private final CustomerRepo repo;
     private final CustomerMapper mapper;
     private final EncryptionService encryptionService;
+    private final JWTHelper jwtHelper;
 
     public String createCustomer(CustomerRequest request) {
         Customer customer = mapper.toEntity(request);
@@ -44,7 +47,7 @@ public class CustomerService {
         if(!encryptionService.validatePassword(request.password(), customer.getPassword())) {
             return "Wrong Password or Email";
         }
-        return "Login Success";
+        return jwtHelper.generateToken(request.email());
     }
 
 }
