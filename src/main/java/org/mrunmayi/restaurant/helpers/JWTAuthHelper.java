@@ -17,7 +17,7 @@ public class JWTAuthHelper {
         String header = request.getHeader("Authorization");
         if (header != null && header.startsWith("Bearer")) {
             String token = header.substring(7);
-            System.out.println("token"+token);
+            System.out.println("token is: "+token);
             try {
                 if (jwtHelper.validateToken(token)) {
                     return jwtHelper.extractUsername(token);

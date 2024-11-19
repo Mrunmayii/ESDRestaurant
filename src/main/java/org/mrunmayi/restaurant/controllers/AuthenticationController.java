@@ -16,12 +16,12 @@ public class AuthenticationController {
         private final CustomerService customerService;
 
         @PostMapping("/login")
-        public ResponseEntity<String> createCustomer(@RequestBody @Valid LoginRequest request) {
+        public ResponseEntity<String> loginCustomer(@RequestBody @Valid LoginRequest request) {
             return ResponseEntity.ok(customerService.login(request));
         }
 
         @PostMapping("/register")
-        public ResponseEntity<String> createCustomer(@RequestBody @Valid CustomerRequest request) {
+        public ResponseEntity<String> createCustomer(@RequestBody @Valid CustomerRequest.CreateRequest request) {
             return ResponseEntity.ok(customerService.createCustomer(request));
         }
 }

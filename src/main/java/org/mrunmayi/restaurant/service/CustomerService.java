@@ -23,7 +23,7 @@ public class CustomerService {
     private final EncryptionService encryptionService;
     private final JWTHelper jwtHelper;
 
-    public String createCustomer(CustomerRequest request) {
+    public String createCustomer(CustomerRequest.CreateRequest request) {
         Customer customer = mapper.toEntity(request);
         customer.setPassword(encryptionService.encryptPassword(customer.getPassword()));
         repo.save(customer);
@@ -38,7 +38,7 @@ public class CustomerService {
     public Customer getCustomerByEmail(String email) {
         return repo.findByEmail(email)
                 .orElseThrow(() -> new CustomerNotFoundException(
-                        format("Cannot update Customer:: No customer found with the provided ID:: %s", email)
+                        format("Cannot find Customer:: No customer found with the provided ID:: %s", email)
                 ));
     }
 
@@ -48,6 +48,32 @@ public class CustomerService {
             return "Wrong Password or Email";
         }
         return jwtHelper.generateToken(request.email());
+    }
+
+    public CustomerResponse updateCustomer(
+            String email,
+            CustomerRequest.UpdateRequest updateRequest
+    ) {
+        Customer customer = repo.findByEmail(email).orElseThrow(() -> new CustomerNotFoundException(
+                format("Cannot find Customer:: No customer found with the provided ID:: %s", email)
+        ));
+        if(updateRequest.firstName() != null){
+            customer.setFirstName(updateRequest.firstName());
+        }
+        if(updateRequest.lastName() != null){
+            customer.setLastName(updateRequest.lastName());
+        }
+        if(updateRequest.addr() != null){
+            customer.setAddr(updateRequest.addr());
+        }
+        if(updateRequest.city() != null){
+            customer.setCity(updateRequest.city());
+        }
+        if(updateRequest.pinCode() != null){
+            customer.setPinCode(updateRequest.pinCode());
+        }
+        repo.save(customer);
+        return mapper.toCustomerResponse(customer);
     }
 
 }
