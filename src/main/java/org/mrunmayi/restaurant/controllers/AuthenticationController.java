@@ -2,7 +2,7 @@ package org.mrunmayi.restaurant.controllers;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.mrunmayi.restaurant.dto.CustomerRequest;
+import org.mrunmayi.restaurant.dto.CustomerDto.CustomerRequest;
 import org.mrunmayi.restaurant.dto.LoginRequest;
 import org.mrunmayi.restaurant.service.CustomerService;
 import org.springframework.http.ResponseEntity;

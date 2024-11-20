@@ -1,4 +1,4 @@
-package org.mrunmayi.restaurant.dto;
+package org.mrunmayi.restaurant.dto.ProductDto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

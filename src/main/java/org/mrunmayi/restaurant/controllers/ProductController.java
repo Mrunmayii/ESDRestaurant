@@ -3,9 +3,8 @@ package org.mrunmayi.restaurant.controllers;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.mrunmayi.restaurant.dto.ProductRequest;
-import org.mrunmayi.restaurant.dto.ProductResponse;
-import org.mrunmayi.restaurant.entity.Products;
+import org.mrunmayi.restaurant.dto.ProductDto.ProductRequest;
+import org.mrunmayi.restaurant.dto.ProductDto.ProductResponse;
 import org.mrunmayi.restaurant.helpers.JWTAuthHelper;
 import org.mrunmayi.restaurant.service.ProductService;
 import org.springframework.http.HttpStatus;
@@ -42,14 +41,21 @@ public class ProductController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> createCustomer(@RequestBody @Valid ProductRequest request) {
+    public ResponseEntity<String> createCustomer(
+            @RequestBody @Valid ProductRequest.ProductCreateRequest request,
+            HttpServletRequest httpServletRequest
+    ) {
+        String email = jwtAuthHelper.checkJWT(httpServletRequest);
+        if(email == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
         return ResponseEntity.ok(productService.createProduct(request));
     }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<ProductResponse> updateProduct(
             @PathVariable("id") Long id,
-            @RequestBody @Valid ProductRequest updateRequest,
+            @RequestBody @Valid ProductRequest.ProductUpdateRequest updateRequest,
             HttpServletRequest request
     ) {
         String email = jwtAuthHelper.checkJWT(request);

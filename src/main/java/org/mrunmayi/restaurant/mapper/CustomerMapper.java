@@ -1,7 +1,7 @@
 package org.mrunmayi.restaurant.mapper;
 
-import org.mrunmayi.restaurant.dto.CustomerRequest;
-import org.mrunmayi.restaurant.dto.CustomerResponse;
+import org.mrunmayi.restaurant.dto.CustomerDto.CustomerRequest;
+import org.mrunmayi.restaurant.dto.CustomerDto.CustomerResponse;
 import org.mrunmayi.restaurant.entity.Customer;
 import org.springframework.stereotype.Service;
 

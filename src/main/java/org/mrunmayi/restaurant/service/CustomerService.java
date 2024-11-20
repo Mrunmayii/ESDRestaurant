@@ -1,11 +1,11 @@
 package org.mrunmayi.restaurant.service;
 
 import lombok.RequiredArgsConstructor;
-import org.mrunmayi.restaurant.dto.CustomerRequest;
-import org.mrunmayi.restaurant.dto.CustomerResponse;
+import org.mrunmayi.restaurant.dto.CustomerDto.CustomerRequest;
+import org.mrunmayi.restaurant.dto.CustomerDto.CustomerResponse;
 import org.mrunmayi.restaurant.dto.LoginRequest;
 import org.mrunmayi.restaurant.entity.Customer;
-import org.mrunmayi.restaurant.exception.CustomerNotFoundException;
+import org.mrunmayi.restaurant.exception.NotFoundException;
 import org.mrunmayi.restaurant.helpers.EncryptionService;
 import org.mrunmayi.restaurant.helpers.JWTAuthHelper;
 import org.mrunmayi.restaurant.helpers.JWTHelper;
@@ -24,7 +24,6 @@ public class CustomerService {
     private final EncryptionService encryptionService;
     private final JWTHelper jwtHelper;
     private final JWTAuthHelper jwtAuthHelper;
-    private final CustomerMapper customerMapper;
 
     public String createCustomer(CustomerRequest.CreateRequest request) {
         Customer customer = mapper.toEntity(request);
@@ -40,8 +39,8 @@ public class CustomerService {
 
     public Customer getCustomerByEmail(String email) {
         return repo.findByEmail(email)
-                .orElseThrow(() -> new CustomerNotFoundException(
-                        format("Cannot find Customer:: No customer found with the provided ID:: %s", email)
+                .orElseThrow(() -> new NotFoundException(
+                        format("No customer found with the provided email:: %s", email)
                 ));
     }
 
@@ -57,8 +56,8 @@ public class CustomerService {
             String email,
             CustomerRequest.UpdateRequest updateRequest
     ) {
-        Customer customer = repo.findByEmail(email).orElseThrow(() -> new CustomerNotFoundException(
-                format("Cannot find Customer:: No customer found with the provided ID:: %s", email)
+        Customer customer = repo.findByEmail(email).orElseThrow(() -> new NotFoundException(
+                format("No customer found with the provided email: %s", email)
         ));
         if(updateRequest.firstName() != null){
             customer.setFirstName(updateRequest.firstName());
@@ -80,7 +79,7 @@ public class CustomerService {
     }
 
     public String deleteCustomer( Long id ) {
-        repo.findById(id).orElseThrow(() -> new CustomerNotFoundException(
+        repo.findById(id).orElseThrow(() -> new NotFoundException(
                 format("No customer found with the ID %s", id)
         ));
         repo.deleteById(id);

@@ -1,4 +1,4 @@
-package org.mrunmayi.restaurant.dto;
+package org.mrunmayi.restaurant.dto.CustomerDto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
