@@ -3,8 +3,6 @@ package org.mrunmayi.restaurant.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
 
-import java.io.Serializable;
-
 public class CustomerRequest {
         public record CreateRequest(
                 @NotNull(message = "Customer should be present")

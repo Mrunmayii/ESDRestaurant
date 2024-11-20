@@ -7,6 +7,7 @@ import org.mrunmayi.restaurant.dto.LoginRequest;
 import org.mrunmayi.restaurant.entity.Customer;
 import org.mrunmayi.restaurant.exception.CustomerNotFoundException;
 import org.mrunmayi.restaurant.helpers.EncryptionService;
+import org.mrunmayi.restaurant.helpers.JWTAuthHelper;
 import org.mrunmayi.restaurant.helpers.JWTHelper;
 import org.mrunmayi.restaurant.mapper.CustomerMapper;
 import org.mrunmayi.restaurant.repo.CustomerRepo;
@@ -22,6 +23,8 @@ public class CustomerService {
     private final CustomerMapper mapper;
     private final EncryptionService encryptionService;
     private final JWTHelper jwtHelper;
+    private final JWTAuthHelper jwtAuthHelper;
+    private final CustomerMapper customerMapper;
 
     public String createCustomer(CustomerRequest.CreateRequest request) {
         Customer customer = mapper.toEntity(request);
@@ -74,6 +77,14 @@ public class CustomerService {
         }
         repo.save(customer);
         return mapper.toCustomerResponse(customer);
+    }
+
+    public String deleteCustomer( Long id ) {
+        repo.findById(id).orElseThrow(() -> new CustomerNotFoundException(
+                format("No customer found with the ID %s", id)
+        ));
+        repo.deleteById(id);
+        return "Customer Deleted Successfully";
     }
 
 }

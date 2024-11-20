@@ -49,4 +49,16 @@ public class CustomerController {
         }
         return ResponseEntity.ok(customerService.updateCustomer(email, updateRequest));
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteCustomer(
+            @PathVariable("id") Long id,
+            HttpServletRequest request
+    ) {
+        String email = jwtAuthHelper.checkJWT(request);
+        if(email == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        return ResponseEntity.ok(customerService.deleteCustomer(id));
+    }
 }
